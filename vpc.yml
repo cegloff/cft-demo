@@ -1,0 +1,453 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Parameters:
+  Env:
+    Description: Environment type
+    Type: String
+  OID:
+    Description: String representing the application OID "lowercase and numbers only"
+    Type: String
+    Default: fg-lab
+  VPCCidr:
+    AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$
+    Description: VPC CIDR
+    Type: String
+    Default: 10.10.64.0/20
+
+Resources:
+  BaseVPC:
+    Properties:
+      CidrBlock:
+        Ref: VPCCidr
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+      Tags:
+      - Key: Environment
+        Value:
+          Ref: Env
+      - Key: Name
+        Value:
+          Fn::Join:
+          - ''
+          - - vpc-
+            - Ref: OID
+            - -VPC
+    Type: AWS::EC2::VPC
+
+  HQPrivateSubnet10:
+    Properties:
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+      CidrBlock: 10.10.70.0/24
+      MapPublicIpOnLaunch: false
+      Tags:
+      - Key: Name
+        Value:
+          Fn::Join:
+          - ''
+          - - HQ-Private-Subnet-1
+            - Fn::Select:
+              - 0
+              - Fn::GetAZs: ''
+      - Key: Type
+        Value: Private
+      VpcId:
+        Ref: BaseVPC
+    Type: AWS::EC2::Subnet
+  HQPrivateSubnet100:
+    Properties:
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+      CidrBlock: 10.10.79.0/24
+      MapPublicIpOnLaunch: false
+      Tags:
+      - Key: Name
+        Value:
+          Fn::Join:
+          - ''
+          - - HQ-Private-Subnet-10
+            - Fn::Select:
+              - 0
+              - Fn::GetAZs: ''
+      - Key: Type
+        Value: Private
+      VpcId:
+        Ref: BaseVPC
+    Type: AWS::EC2::Subnet
+  HQPrivateSubnet20:
+    Properties:
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+      CidrBlock: 10.10.71.0/24
+      MapPublicIpOnLaunch: false
+      Tags:
+      - Key: Name
+        Value:
+          Fn::Join:
+          - ''
+          - - HQ-Private-Subnet-2
+            - Fn::Select:
+              - 0
+              - Fn::GetAZs: ''
+      - Key: Type
+        Value: Private
+      VpcId:
+        Ref: BaseVPC
+    Type: AWS::EC2::Subnet
+  HQPrivateSubnet30:
+    Properties:
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+      CidrBlock: 10.10.72.0/24
+      MapPublicIpOnLaunch: false
+      Tags:
+      - Key: Name
+        Value:
+          Fn::Join:
+          - ''
+          - - HQ-Private-Subnet-3
+            - Fn::Select:
+              - 0
+              - Fn::GetAZs: ''
+      - Key: Type
+        Value: Private
+      VpcId:
+        Ref: BaseVPC
+    Type: AWS::EC2::Subnet
+  HQPrivateSubnet40:
+    Properties:
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+      CidrBlock: 10.10.73.0/24
+      MapPublicIpOnLaunch: false
+      Tags:
+      - Key: Name
+        Value:
+          Fn::Join:
+          - ''
+          - - HQ-Private-Subnet-4
+            - Fn::Select:
+              - 0
+              - Fn::GetAZs: ''
+      - Key: Type
+        Value: Private
+      VpcId:
+        Ref: BaseVPC
+    Type: AWS::EC2::Subnet
+  HQPrivateSubnet50:
+    Properties:
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+      CidrBlock: 10.10.74.0/24
+      MapPublicIpOnLaunch: false
+      Tags:
+      - Key: Name
+        Value:
+          Fn::Join:
+          - ''
+          - - HQ-Private-Subnet-5
+            - Fn::Select:
+              - 0
+              - Fn::GetAZs: ''
+      - Key: Type
+        Value: Private
+      VpcId:
+        Ref: BaseVPC
+    Type: AWS::EC2::Subnet
+  HQPrivateSubnet60:
+    Properties:
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+      CidrBlock: 10.10.75.0/24
+      MapPublicIpOnLaunch: false
+      Tags:
+      - Key: Name
+        Value:
+          Fn::Join:
+          - ''
+          - - HQ-Private-Subnet-6
+            - Fn::Select:
+              - 0
+              - Fn::GetAZs: ''
+      - Key: Type
+        Value: Private
+      VpcId:
+        Ref: BaseVPC
+    Type: AWS::EC2::Subnet
+  HQPrivateSubnet70:
+    Properties:
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+      CidrBlock: 10.10.76.0/24
+      MapPublicIpOnLaunch: false
+      Tags:
+      - Key: Name
+        Value:
+          Fn::Join:
+          - ''
+          - - HQ-Private-Subnet-7
+            - Fn::Select:
+              - 0
+              - Fn::GetAZs: ''
+      - Key: Type
+        Value: Private
+      VpcId:
+        Ref: BaseVPC
+    Type: AWS::EC2::Subnet
+  HQPrivateSubnet80:
+    Properties:
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+      CidrBlock: 10.10.77.0/24
+      MapPublicIpOnLaunch: false
+      Tags:
+      - Key: Name
+        Value:
+          Fn::Join:
+          - ''
+          - - HQ-Private-Subnet-8
+            - Fn::Select:
+              - 0
+              - Fn::GetAZs: ''
+      - Key: Type
+        Value: Private
+      VpcId:
+        Ref: BaseVPC
+    Type: AWS::EC2::Subnet
+  HQPrivateSubnet90:
+    Properties:
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+      CidrBlock: 10.10.78.0/24
+      MapPublicIpOnLaunch: false
+      Tags:
+      - Key: Name
+        Value:
+          Fn::Join:
+          - ''
+          - - HQ-Private-Subnet-9
+            - Fn::Select:
+              - 0
+              - Fn::GetAZs: ''
+      - Key: Type
+        Value: Private
+      VpcId:
+        Ref: BaseVPC
+    Type: AWS::EC2::Subnet
+  HQPublicSubnet10:
+    Properties:
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+      CidrBlock: 10.10.69.0/24
+      MapPublicIpOnLaunch: false
+      Tags:
+      - Key: Name
+        Value:
+          Fn::Join:
+          - ''
+          - - HQ-Public-Subnet-1
+            - Fn::Select:
+              - 0
+              - Fn::GetAZs: ''
+      - Key: Type
+        Value: Public
+      VpcId:
+        Ref: BaseVPC
+    Type: AWS::EC2::Subnet
+  InternetGateway:
+    Properties:
+      Tags:
+      - Key: Environment
+        Value:
+          Ref: Env
+      - Key: Name
+        Value:
+          Fn::Join:
+          - ''
+          - - igw-
+            - Ref: OID
+            - -IGW
+    Type: AWS::EC2::InternetGateway
+  InternetGatewayAttachment:
+    Properties:
+      InternetGatewayId:
+        Ref: InternetGateway
+      VpcId:
+        Ref: BaseVPC
+    Type: AWS::EC2::VPCGatewayAttachment
+
+
+
+  RouteTablePublic:
+    Properties:
+      Tags:
+      - Key: Environment
+        Value: Env
+      - Key: Name
+        Value:
+          Fn::Join:
+          - ''
+          - - Public-
+            - Ref: OID
+            - -RouteTable
+      VpcId:
+        Ref: BaseVPC
+    Type: AWS::EC2::RouteTable
+  DefaultRoutePublic:
+    DependsOn: InternetGatewayAttachment
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId:
+        Ref: InternetGateway
+      RouteTableId:
+        Ref: RouteTablePublic
+    Type: AWS::EC2::Route
+
+
+  rtbA:
+    Properties:
+      Tags:
+      - Key: Environment
+        Value:
+          Ref: Env
+      - Key: Name
+        Value:
+          Fn::Join:
+          - ''
+          - - Private-
+            - Ref: OID
+            - -RouteTable-A
+      VpcId:
+        Ref: BaseVPC
+    Type: AWS::EC2::RouteTable
+  rtbHQPrivateSubnet10:
+    Properties:
+      RouteTableId:
+        Ref: rtbA
+      SubnetId:
+        Ref: HQPrivateSubnet10
+    Type: AWS::EC2::SubnetRouteTableAssociation
+  rtbHQPrivateSubnet100:
+    Properties:
+      RouteTableId:
+        Ref: rtbA
+      SubnetId:
+        Ref: HQPrivateSubnet100
+    Type: AWS::EC2::SubnetRouteTableAssociation
+  rtbHQPrivateSubnet20:
+    Properties:
+      RouteTableId:
+        Ref: rtbA
+      SubnetId:
+        Ref: HQPrivateSubnet20
+    Type: AWS::EC2::SubnetRouteTableAssociation
+  rtbHQPrivateSubnet30:
+    Properties:
+      RouteTableId:
+        Ref: rtbA
+      SubnetId:
+        Ref: HQPrivateSubnet30
+    Type: AWS::EC2::SubnetRouteTableAssociation
+  rtbHQPrivateSubnet40:
+    Properties:
+      RouteTableId:
+        Ref: rtbA
+      SubnetId:
+        Ref: HQPrivateSubnet40
+    Type: AWS::EC2::SubnetRouteTableAssociation
+  rtbHQPrivateSubnet50:
+    Properties:
+      RouteTableId:
+        Ref: rtbA
+      SubnetId:
+        Ref: HQPrivateSubnet50
+    Type: AWS::EC2::SubnetRouteTableAssociation
+  rtbHQPrivateSubnet60:
+    Properties:
+      RouteTableId:
+        Ref: rtbA
+      SubnetId:
+        Ref: HQPrivateSubnet60
+    Type: AWS::EC2::SubnetRouteTableAssociation
+  rtbHQPrivateSubnet70:
+    Properties:
+      RouteTableId:
+        Ref: rtbA
+      SubnetId:
+        Ref: HQPrivateSubnet70
+    Type: AWS::EC2::SubnetRouteTableAssociation
+  rtbHQPrivateSubnet80:
+    Properties:
+      RouteTableId:
+        Ref: rtbA
+      SubnetId:
+        Ref: HQPrivateSubnet80
+    Type: AWS::EC2::SubnetRouteTableAssociation
+  rtbHQPrivateSubnet90:
+    Properties:
+      RouteTableId:
+        Ref: rtbA
+      SubnetId:
+        Ref: HQPrivateSubnet90
+    Type: AWS::EC2::SubnetRouteTableAssociation
+  rtbHQPublicSubnet10:
+    Properties:
+      RouteTableId:
+        Ref: RouteTablePublic
+      SubnetId:
+        Ref: HQPublicSubnet10
+    Type: AWS::EC2::SubnetRouteTableAssociation
+
+Outputs:
+  vpcId:
+    Description: VPC Created By This Stack
+    Export:
+      Name: fg-lab-hq-BASEVPC
+    Value:
+      Ref: BaseVPC
+  fwpublicsubnetA:
+    Description: VPC Created By This Stack
+    Export:
+      Name: hq-public-subnet-a
+    Value:
+      Ref: HQPublicSubnet10
+  fwprivatesubnetA:
+    Description: VPC Created By This Stack
+    Export:
+      Name: hq-private-subnet-a
+    Value:
+      Ref: HQPrivateSubnet10
+  privateRTBA:
+    Description: VPC Created By This Stack
+    Export:
+      Name: hq-private-rtb-a
+    Value:
+      Ref: rtbA
+  IGW:
+    Description: InternetGateway
+    Export:
+      Name: hq-igw
+    Value:
+      Ref: InternetGateway
+

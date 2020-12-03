@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+
+Resources:
+#########################################################################################################
+#
+# VPC Routes
+#
+#########################################################################################################
+  NewRoute1:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId:
+        Fn::ImportValue: hq-private-rtb-a
+      DestinationCidrBlock: '10.249.0.0/16'
+      GatewayId: 
+        Fn::ImportValue: hq-igw
+
+
+
+
+  
