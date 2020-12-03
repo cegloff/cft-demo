@@ -15,6 +15,14 @@ Resources:
       DestinationCidrBlock: '10.249.0.0/16'
       GatewayId: 
         Fn::ImportValue: hq-igw
+  NewRoute2:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId:
+        Fn::ImportValue: hq-private-rtb-a
+      DestinationCidrBlock: '10.248.0.0/16'
+      GatewayId: 
+        Fn::ImportValue: hq-igw
 
 
 
